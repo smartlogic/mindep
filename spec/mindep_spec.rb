@@ -21,12 +21,12 @@ describe Mindep do
   end
 
   it "should return the absolute min if tests pass for all revs" do
-    Tests.stub!(:pass?).and_return(true)
+    Tests.stub!(:passing?).and_return(true)
     mindep.min.should eq(:a => "1", :b => "1", :c => "1")
   end
 
   it "should return the last passing rev for all revs" do
-    Tests.stub!(:pass?) { |dep, rev| rev != "1" }
+    Tests.stub!(:passing?) { |dep, rev| rev != "1" }
     mindep.min.should eq(:a => "2", :b => "2", :c => "2")
   end
 end

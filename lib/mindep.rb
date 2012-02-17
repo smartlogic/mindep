@@ -6,7 +6,7 @@ class Mindep
 
   def min
     dep_list.inject({}) do |min, dep|
-      passing, failing = revs(dep).partition { |rev| Tests.pass?(dep, rev) }
+      passing, failing = revs(dep).partition { |rev| Tests.passing?(dep, rev) }
       min.merge(dep => passing.last)
     end
   end
