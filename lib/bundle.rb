@@ -1,7 +1,7 @@
 require "bundler"
 
 class Bundle
-  def deps
+  def self.deps
     Bundler.definition.dependencies.map(&:name)
   end
 end

@@ -4,8 +4,6 @@ require "fakefs/spec_helpers"
 describe Bundle do
   include FakeFS::SpecHelpers
 
-  let(:bundle) { Bundle.new }
-
   before do
     File.open("Gemfile", "w+") do |f|
       f.puts 'source "https://rubygems.org"'
@@ -16,6 +14,6 @@ describe Bundle do
   end
 
   it "should return a list of deps" do
-    bundle.deps.should eq(["a", "b", "c"])
+    Bundle.deps.should eq(["a", "b", "c"])
   end
 end
