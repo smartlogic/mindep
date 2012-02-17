@@ -7,9 +7,9 @@ describe Mindep do
     [:a, :b, :c]
   }
   let(:dep_revs) {
-    [[3, 2, 1],
-     [3, 2, 1],
-     [3, 2, 1]]
+    [%w{3 2 1},
+     %w{3 2 1},
+     %w{3 2 1}]
   }
 
   let(:mindep) { Mindep.new(dep_list, dep_revs) }
@@ -22,11 +22,11 @@ describe Mindep do
 
   it "should return the absolute min if tests pass for all revs" do
     Tests.stub!(:pass?).and_return(true)
-    mindep.min.should eq(:a => 1, :b => 1, :c => 1)
+    mindep.min.should eq(:a => "1", :b => "1", :c => "1")
   end
 
   it "should return the last passing rev for all revs" do
-    Tests.stub!(:pass?) { |dep, rev| rev != 1 }
-    mindep.min.should eq(:a => 2, :b => 2, :c => 2)
+    Tests.stub!(:pass?) { |dep, rev| rev != "1" }
+    mindep.min.should eq(:a => "2", :b => "2", :c => "2")
   end
 end
