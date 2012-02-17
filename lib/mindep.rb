@@ -1,21 +1,18 @@
+require_relative "tests"
+
 class Mindep
-  def initialize(dep_list, dep_revs)
-    @dep_list = dep_list
-    @dep_revs = dep_revs
+  def initialize(bundle)
+    @bundle = bundle
   end
 
   def min
-    dep_list.inject({}) do |min, dep|
-      passing, failing = revs(dep).partition { |rev| Tests.passing?(dep, rev) }
+    bundle.deps.inject({}) do |min, dep|
+      passing = dep.revs.take_while { |rev| Tests.passing?(dep, rev) }
       min.merge(dep => passing.last)
     end
   end
 
-  def revs(dep)
-    dep_revs[dep_list.index(dep)]
-  end
-
   private
 
-  attr_reader :dep_list, :dep_revs
+  attr_reader :bundle
 end
