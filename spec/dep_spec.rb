@@ -1,5 +1,4 @@
 require "dep"
-require "json"
 
 describe Dep do
   let(:dep) { Dep.new("gem_name") }
