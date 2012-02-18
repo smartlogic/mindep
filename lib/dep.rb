@@ -1,11 +1,22 @@
 require "gems"
 
 class Dep
-  def initialize(gem_name)
-    @gem_name = gem_name
+  attr_reader :name
+
+  def initialize(name)
+    @name = name
   end
 
   def revs
-    Gems.versions(@gem_name).map { |rev| rev["number"] }
+    Gems.versions(name).map { |rev| rev["number"] }
+  end
+
+  def current_rev
+    revs[@current_rev ||= 0]
+  end
+
+  def downgrade!
+    @current_rev =+ 1
+    current_rev
   end
 end
