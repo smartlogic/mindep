@@ -10,12 +10,6 @@ class Bundle
       dependencies.find { |dep| dep.name == dep_name }.requirement
     end
 
-    def pin(dep_name, rev)
-      dep = dependencies.find { |dep| dep.name == dep_name }
-      dep.requirement.instance_variable_set(:@requirements, [Gem::Version.new(rev)])
-      dep.instance_variable_set(:@requirement, nil)
-    end
-
     def gemfile
       ['source "https://rubygems.org"', *deps.map { |dep| %Q{gem "#{dep.name}", "#{dep.current_rev}"} }].join("\n")
     end
