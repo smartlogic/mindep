@@ -6,10 +6,6 @@ class Bundle
       dependencies.map { |dep| Dep.new(dep.name) }
     end
 
-    def gemfile
-      ['source "https://rubygems.org"', *deps.map { |dep| %Q{gem "#{dep.name}", "#{dep.current_rev}"} }].join("\n")
-    end
-
     private
 
     def dependencies
