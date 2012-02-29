@@ -7,7 +7,7 @@ class Mindep
 
   def min
     bundle.deps.inject({}) do |min, dep|
-      passing = dep.revs.take_while { |rev| Tests.passing?(dep, rev) }
+      passing = dep.revs.take_while { |rev| Tests.passing? }
       min.merge(dep => passing.last)
     end
   end
