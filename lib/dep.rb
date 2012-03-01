@@ -3,20 +3,26 @@ require "gems"
 class Dep
   attr_reader :name
 
-  def initialize(name)
+  def initialize(name, rev = nil)
     @name = name
+    @rev = rev
   end
 
   def revs
-    Gems.versions(name).map { |rev| rev["number"] }
+    @revs ||= Gems.versions(name).map { |rev| rev["number"] }
   end
 
-  def current_rev
-    revs[@current_rev ||= 0]
+  def rev
+    @rev || revs.first
   end
 
-  def downgrade!
-    @current_rev =+ 1
-    current_rev
+  def next
+    Dep.new(name, next_rev) if next_rev
+  end
+
+  private
+
+  def next_rev
+    revs[revs.index(rev) + 1]
   end
 end

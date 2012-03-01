@@ -17,6 +17,6 @@ class Gemfile
   attr_reader :deps
 
   def contents
-    ['source "https://rubygems.org"', *deps.map { |dep| %Q{gem "#{dep.name}", "#{dep.current_rev}"} }].join("\n")
+    ['source "https://rubygems.org"', *deps.map { |dep| %Q{gem "#{dep.name}", "#{dep.rev}"} }].join("\n")
   end
 end
