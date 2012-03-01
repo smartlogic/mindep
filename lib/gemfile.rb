@@ -12,6 +12,13 @@ class Gemfile
     end
   end
 
+  def next
+    next_deps = deps.dup
+    i = next_deps.index { |dep| dep.next }
+    next_deps[i] = next_deps[i].next
+    Gemfile.new(next_deps)
+  end
+
   private
 
   attr_reader :deps
